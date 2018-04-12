@@ -50,7 +50,7 @@ print 'Total Sentences in Document:', total_sentences
 
 
 num_sentences = 3
-num_topics = 2
+num_topics = 1
 
 vec, dt_matrix = build_feature_matrix(sentences, 
                                       feature_type='frequency')
@@ -179,22 +179,45 @@ Skyrim is the first entry in The Elder Scrolls to include Dragons in the game's
 wilderness. Like other creatures, Dragons are generated randomly in the world 
 and will engage in combat. 
 """
-DOCUMENT_1 = '''
+
+DOCUMENT_1 = """
 
 The patient is an 86-year-old female admitted for evaluation of abdominal pain and bloody stools. The patient has colitis and also diverticulitis, undergoing treatment.
 During the hospitalization, the patient complains of shortness of breath, which is worsening. The patient underwent an echocardiogram, which shows severe mitral regurgitation and also large pleural effusion.
 This consultation is for further evaluation in this regard. As per the patient, she is an 86-year-old female, has limited activity level.
 She has been having shortness of breath for many years. She also was told that she has a heart murmur, which was not followed through on a regular basis.
 
-'''
+"""
+
+DOCUMENT_2 = """ The patient is a very pleasant 41-year-old white female that is known to me previously from our work at the Pain Management Clinic, as well as from my residency training program, San Francisco. We have worked collaboratively for many years at the Pain Management Clinic and with her departure there, she has asked to establish with me for clinic pain management at my office. She reports moderate to severe pain related to a complicated past medical history. In essence, she was seen at a very young age at the clinic for bilateral knee and hip pain and diagnosed with bursitis at age 23. She was given nonsteroidals at that time, which did help with this discomfort. With time, however, this became inadequate and she was seen later in San Francisco in her mid 30s by Dr. V, an orthopedist who diagnosed retroverted hips at Hospital. She was referred for rehabilitation and strengthening. Most of this was focused on her SI joints. At that time, although she had complained of foot discomfort, she was not treated for it. This was in 1993 after which she and her new husband moved to the Boston area, where she lived from 1995-1996. She was seen at the Pain Center by Dr. R with similar complaints of hip and knee pain. She was seen by rheumatologists there and diagnosed with osteoarthritis as well as osteophytosis of the back. Medications at that time were salicylate and Ultram.
+
+When she returned to Portland in 1996, she was then working for Dr. B. She was referred to a podiatrist by her local doctor who found several fractured sesamoid bones in her both feet, but this was later found not to be the case. Subsequently, nuclear bone scans revealed osteoarthritis. Orthotics were provided. She was given Paxil and Tramadol and subsequently developed an unfortunate side effect of grand mal seizure. During this workup of her seizure, imaging studies revealed a pericardial fluid-filled cyst adhered to her ventricle. She has been advised not to undergo any corrective or reparative surgery as well as to limit her activities since. She currently does not have an established cardiologist having just changed insurance plans. She is establishing care with Dr. S, of Rheumatology for her ongoing care. Up until today, her pain medications were being written by Dr. Y prior to establishing with Dr. L.
+
+Pain management in town had been first provided by the office of Dr. F. Under his care, followup MRIs were done which showed ongoing degenerative disc disease, joint disease, and facet arthropathy in addition to previously described sacroiliitis. A number of medications were attempted there, including fentanyl patches with Flonase from 25 mcg titrated upwards to 50 mcg, but this caused oversedation. She then transferred her care to Ab Cd, FNP under the direction of Dr. K. Her care there was satisfactory, but because of her work schedule, the patient found this burdensome as well as the guidelines set forth in terms of monthly meetings and routine urine screens. Because of a previous commitment, she was unable to make one unscheduled request to their office in order to produce a random urine screen and was therefore discharged.
+"""
 
 sentences = parse_document(DOCUMENT_1)
 norm_sentences = normalize_corpus(sentences,lemmatize=True) 
-print "Total Sentences:", len(norm_sentences) 
-print ("---------lsa summarization--------")
-lsa_text_summarizer(norm_sentences, num_sentences=3,
-                    num_topics=5, feature_type='frequency',
-                    sv_threshold=0.5)  
-print ("---------textrank summarization--------")
-textrank_text_summarizer(norm_sentences, num_sentences=3,
-                         feature_type='tfidf')                                        
+print "Total Sentences:", len(norm_sentences)
+
+print ("\n---------lsa summarization for document 1--------")
+lsa_text_summarizer(norm_sentences, num_sentences=4,
+                    num_topics=2, feature_type='frequency',
+                    sv_threshold=0.5)
+
+print ("---------text-rank summarization for document 1--------\n")
+textrank_text_summarizer(norm_sentences, num_sentences=4,
+                         feature_type='tfidf')
+
+sentences = parse_document(DOCUMENT_2)
+norm_sentences = normalize_corpus(sentences,lemmatize=True)
+print "Total Sentences:", len(norm_sentences)
+
+print ("\n---------lsa summarization for document 2--------")
+lsa_text_summarizer(norm_sentences, num_sentences=4,
+                    num_topics=2, feature_type='frequency',
+                    sv_threshold=0.5)
+
+print ("---------text-rank summarization for document 2--------\n")
+textrank_text_summarizer(norm_sentences, num_sentences=4,
+                         feature_type='tfidf')

@@ -34,4 +34,5 @@ def low_rank_svd(matrix, singular_count=2):
     
     u, s, vt = svds(matrix, k=singular_count)
     return u, s, vt
-    
+
+
