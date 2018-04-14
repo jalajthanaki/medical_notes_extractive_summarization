@@ -34,7 +34,7 @@ summy:        $ sudo pip install sumy
 
 ## Credit
 
-
+Code credits for this code go to dipanjanS, Xiao and Tristan Havelick. I've merely created a wrapper and necessary changes to get people started.
 
 
 
